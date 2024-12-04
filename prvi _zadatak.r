@@ -72,6 +72,12 @@ rjesenje <- lp("min", obj, const_mat, const_dir, rhs, compute.sens=TRUE)
 print("Optimalne vrijednosti varijabli:")
 print(rjesenje$solution)
 print(paste("Minimalni trošak:", rjesenje$objval))
+# ili
+
+print("Optimalne vrijednosti varijabli:")
+print(rjesenje)
+print(rjesenje$solution)
+print(paste("Minimalni trošak:", rjesenje$opt))
 
 '''
 [1] "Optimalne vrijednosti varijabli:"
