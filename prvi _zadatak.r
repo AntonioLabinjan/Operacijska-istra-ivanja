@@ -16,6 +16,36 @@
 # odnosno
 # min(43.51 x1 + 79050 x2 + 195060 x3 + 8040 x4 + 55.03) 
 
+
+# Instalacija i učitavanje linprog paketa
+install.packages("linprog")
+library(linprog)
+
+# Definiranje ciljne funkcije
+obj <- c(43.51, 79050, 195060, 8040)
+
+# Definiranje matrice ograničenja
+const_mat <- matrix(c(0, 10, 30, 1,   # 10x2 + 30x3 + x4 >= 30
+                      1, 10, 30, 1,   # x1 + 10x2 + 30x3 + x4 >= 100
+                      0, 79000, 195000, 8000), # 79000x2 + 195000x3 + 8000x4 <= 215000
+                    nrow=3, byrow=TRUE)
+
+# Smjerovi ograničenja
+const_dir <- c(">=", ">=", "<=")
+
+# Desne strane ograničenja
+rhs <- c(30, 100, 215000)
+
+# Rješavanje problema linearnog programiranja
+rjesenje <- solveLP(cvec = obj, Amat = const_mat, bvec = rhs, maximum = FALSE, const.dir = const_dir)
+
+# Prikaz rezultata
+print("Optimalne vrijednosti varijabli:")
+print(rjesenje$solution)
+print(paste("Minimalni trošak:", rjesenje$opt))
+
+
+
 # Instalacija i učitavanje lpSolve paketa
 install.packages("lpSolve")
 library(lpSolve)
